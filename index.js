@@ -195,7 +195,7 @@ function authorizeUser(req, res, next) {
 }
 
 // Create a product
-app.post('/api/products', upload.single('productImage'), async (req, res) => {
+app.post('/api/products', authorizeAdmin, upload.single('productImage'), async (req, res) => {
   try {
     const { name, quantity, price } = req.body
     const image = req.file
@@ -266,7 +266,7 @@ app.get('/api/products/:id', async (req, res) => {
 })
 
 // Update a product
-app.put('/api/products/:id', upload.single('productImage'), async (req, res) => {
+app.put('/api/products/:id', authorizeAdmin, upload.single('productImage'), async (req, res) => {
   try {
     const productId = req.params.id
     const { name, quantity, price } = req.body
@@ -290,7 +290,7 @@ app.put('/api/products/:id', upload.single('productImage'), async (req, res) => 
 })
 
 // Delete a product
-app.delete('/api/products/:id', async (req, res) => {
+app.delete('/api/products/:id', authorizeAdmin, async (req, res) => {
   try {
     const productId = req.params.id
 
